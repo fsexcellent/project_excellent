@@ -22,8 +22,8 @@ int insert_student(Linklist *L)
 	student_t stu;
 
 	input_student(&stu);
-	insert_student(L,stu);
 
+    add_student_list(L,stu);
 	return 0;
 }
 

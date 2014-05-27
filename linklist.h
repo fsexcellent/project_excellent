@@ -1,5 +1,6 @@
 #ifndef _LINK_H
 #define _LINK_H
+#include "head.h"
 
 extern int do_free(Linklist *head);
 extern int is_empty(Linklist *head);
