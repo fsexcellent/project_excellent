@@ -9,6 +9,14 @@ typedef struct
 	int  score;
 }student_t;
 
+typedef struct 
+{
+	char name[14];
+	char password[14];
+	int privilege;
+}manage_account_t;
+
+
 typedef student_t DATATYPE;
 
 typedef struct node 
