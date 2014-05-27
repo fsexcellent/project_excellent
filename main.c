@@ -43,7 +43,7 @@ int login()
 	account[strlen(account) - 1] = '\0';	
 	for(i = 0; i < sizeof(accounts) / sizeof(accounts[0]); i++)
 	{
-		printf("%s, %s\n", account, accounts[i].name);
+//		printf("%s, %s\n", account, accounts[i].name);
 		if(strcmp(account, accounts[i].name) == 0)	
 		{
 			printf("password:");
@@ -108,6 +108,7 @@ int main(int argc, const char *argv[])
 		help();
 		printf("input cmd>");
 		scanf("%d",&cmd);
+		while(getchar() != '\n');
 
 		switch(cmd)
 		{
@@ -142,6 +143,9 @@ int main(int argc, const char *argv[])
 
 		case QUIT:
 			goto next;
+		
+		default:
+			continue;
 		}
 	}
 
