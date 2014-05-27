@@ -22,11 +22,14 @@ again:
 
 int insert_student(Linklist *L)
 {
+<<<<<<< HEAD
 	student_t stu;
 
 	input_student(&stu);
     add_student_list(L,stu);	
 
+=======
+>>>>>>> 687c5f6766b69dcafbe18fa9a5653929ab12ed38
 	return 0;
 }
 
