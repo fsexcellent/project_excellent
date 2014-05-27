@@ -22,5 +22,6 @@ extern int insert_student(Linklist *L);
 extern int modify_student(Linklist *L);
 extern int delete_student(Linklist *L);
 extern int lookup_student(Linklist *L);
+extern int to_file_student(Linklist *L);
 
 #endif 
