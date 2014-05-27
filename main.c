@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "head.h"
 #include "linklist.h"
 
@@ -8,6 +10,13 @@
 #define LOOKUP 4
 #define QUIT   5
 #define TO_FILE   6
+
+#define NAMESIZE 10
+
+manage_account_t accounts[2] = {
+	{"admin", "123456", 1}, 
+	{"normal", "123456", 0},
+};
 
 void help()
 {
@@ -22,11 +31,78 @@ void help()
 	return ;
 }
 
+int login()
+{
+	char account[NAMESIZE];
+	char password[NAMESIZE];
+	int i = 0;
+	int flag = 0;
+	DATATYPE *stu;
+	printf("account:");
+	fgets(account, NAMESIZE, stdin);
+	account[strlen(account) - 1] = '\0';	
+	for(i = 0; i < sizeof(accounts) / sizeof(accounts[0]); i++)
+	{
+		printf("%s, %s\n", account, accounts[i].name);
+		if(strcmp(account, accounts[i].name) == 0)	
+		{
+			printf("password:");
+			fgets(password, NAMESIZE, stdin);
+			password[strlen(password) - 1] = '\0';	
+			if(strcmp(password, accounts[i].password) == 0)
+			{
+				flag = 1; 
+				break;
+			}
+			else
+			{
+				printf("invalid password!");		
+				return -2;
+			}
+		}
+	}
+
+	if(flag == 0)
+	{
+		printf("invalid account!\n");	
+		return -1;
+	}
+	
+	return accounts[i].privilege;
+}
+
 int main(int argc, const char *argv[])
 {
-	int cmd;
-	Linklist *L = create_empty_linklist();
+	int cmd, pri = 0;
+	int login_times = 0; 
+	char ch;
+	Linklist *L;
 
+	while(login_times < 3)
+	{
+		pri = login();
+		if(pri == -1)
+		{
+			printf("try again? y/n\n");	
+			ch = getchar();				
+			while(getchar() != '\n');
+			if(ch == 'y' || ch == 'Y')
+			{
+				login_times++;	
+				continue;
+			}
+			else
+			{
+				exit(-1);	
+			}
+		}
+		else
+		{
+			break;		
+		}
+	}
+
+	L = create_empty_linklist();
 	while(1)
 	{
 		help();
@@ -36,15 +112,24 @@ int main(int argc, const char *argv[])
 		switch(cmd)
 		{
 		case INSERT:
-			insert_student(L);
+			if(pri == 1)
+				insert_student(L);
+			else
+				printf("permission denied!\n");
 			break;
 
 		case MODIFY:
-			modify_student(L);
+			if(pri == 1)
+				modify_student(L);
+			else
+				printf("permission denied!\n");
 			break;
 
 		case DELETE:
-			delete_student(L);
+			if(pri == 1)
+				delete_student(L);
+			else
+				printf("permission denied!\n");
 			break;
 
 		case LOOKUP:
