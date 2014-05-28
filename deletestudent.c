@@ -69,13 +69,14 @@ int delete_student(Linklist *L)
             printf("name\tage\tid\tscore\n");
 
             while(head)
-            {
-                *stu1 = head->data;
+            { 
+                stu1 = &(head->data);
                 printf("%s\t%d\t%d\t%d\n",stu1->name, stu1->age, stu1->id, stu1->score);
                 delete_student_list(L,stu1);
 
                 head = head->next;
             }
+            do_free(namelist);
         }
         else if(0 == choice_n)
         {
