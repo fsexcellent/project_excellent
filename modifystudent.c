@@ -5,16 +5,17 @@
 
 void printf_linklist(Linklist *p)
 {
+    printf("NAME\tAGE\tID\tSCORE\n");
     while(p->next != NULL)
     {
-        printf("name\tage\tid\tscore\n");
         printf("%s\t%d\t%d\t%d\n",p->next->data.name,p->next->data.age,p->next->data.id,p->next->data.score);
+        p = p->next;
     }
 }
 
 void printf_student(DATATYPE *q)
 {
-    printf("name\tage\tid\tscore\n");
+    printf("NAME\tAGE\tID\tSCORE\n");
     printf("%s\t%d\t%d\t%d\n",q->name,q->age,q->id,q->score);
 }
 
@@ -25,51 +26,59 @@ void new_massage(DATATYPE *q)
 
     printf("New name :");
     fgets(str,sizeof(str),stdin);
-    printf("\n");
+    str[strlen(str) - 1] = 0;
     strcpy(q->name,str);
 
     printf("New age : ");
-    scanf("%d\n",&m);
+    scanf("%d",&m);
+    while(getchar() != '\n');
     q->age = m;
 
-    printf("New id : ");
-    scanf("%d\n",&m);
-    q->id = m;
-
     printf("New score : ");
-    scanf("%d\n",&m);
+    scanf("%d",&m);
+    while(getchar() != '\n');
     q->score = m;
 }
 
 int modify_student(Linklist *L)
 {
     //printf("modify student!\n");
-    printf("please into name\n");
     Linklist *p = NULL;
     char buf[20];
     int n = 0;
     int id = 0;
     DATATYPE *q = NULL;
 
+    printf_linklist(L);
+    printf("name:");
     fgets(buf,sizeof(buf),stdin);
+    buf[strlen(buf) -1] = 0;
     n = lookup_student_list_by_name(L,buf,&p);
-    if(n = 0)
+    
+    if(n == 0)
     {
-        printf("without the student !\n");
+        printf("the student no exist!\n");
     }
-    else if(n != 1)
+    else if(n > 0)
     {
-        printf("Please into ID who you want to modify !");
         printf_linklist(p);
+        printf("Please input ID who you want to modify !\n");
         scanf("%d",&id);
-        q = lookup_student_list_by_id(p,id);
-        printf_student(q);
-    }
-    else if(n = 1)
-    {
+        while(getchar() != '\n');
+        q = lookup_student_list_by_id(L,id);
+        if(q == NULL)
+        {
+            printf("id no exist!\n");
+            return -1;
+        }
         printf_student(q);
         new_massage(q);
     }
+    /*else if(n = 1)*/
+    /*{*/
+        /*printf_student(q);*/
+        /*new_massage(q);*/
+    /*}*/
     
 	return 0;
 }
