@@ -17,6 +17,29 @@ void printf_student(DATATYPE *q)
     printf("%s\t%d\t%d\t%d\n",q->name,q->age,q->id,q->score);
 }
 
+void new_massage(DATATYPE *q)
+{   
+    char str[20];
+    int m = 0;
+
+    printf("New name :");
+    fgets(atr,sizeof(str),stdin);
+    printf("\n");
+    q->name = atr;
+
+    printf("New age : ");
+    scanf("%d\n",&m);
+    q->age = m;
+
+    printf("New id : ");
+    scanf("%d\n",&m);
+    q->id = m;
+
+    printf("New score : ");
+    scanf("%d\n",&m);
+    q->score = m;
+}
+
 int modify_student(Linklist *L)
 {
     //printf("modify student!\n");
@@ -44,6 +67,7 @@ int modify_student(Linklist *L)
     else if(n = 1)
     {
         printf_linklist(p);
+        new_massage(q);
     }
     
 	return 0;
