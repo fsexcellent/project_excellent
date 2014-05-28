@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "head.h"
 #include "linklist.h"
+#include "string.h"
 
 void printf_linklist(Linklist *p)
 {
@@ -19,13 +20,13 @@ void printf_student(DATATYPE *q)
 
 void new_massage(DATATYPE *q)
 {   
-    char str[20];
+    char str[14];
     int m = 0;
 
     printf("New name :");
-    fgets(atr,sizeof(str),stdin);
+    fgets(str,sizeof(str),stdin);
     printf("\n");
-    q->name = atr;
+    strcpy(q->name,str);
 
     printf("New age : ");
     scanf("%d\n",&m);
@@ -66,7 +67,7 @@ int modify_student(Linklist *L)
     }
     else if(n = 1)
     {
-        printf_linklist(p);
+        printf_student(q);
         new_massage(q);
     }
     
