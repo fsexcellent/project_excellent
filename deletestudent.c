@@ -24,6 +24,8 @@ int delete_student(Linklist *L)
             puts("Empty Linklist,Please add students first!");
             return 0;
         }
+
+        puts("============================Students list:==========================");
         printf("name\tage\tid\tscore\n");
 
         while(head)
@@ -31,6 +33,7 @@ int delete_student(Linklist *L)
             printf("%s\t%d\t%d\t%d\n",head->data.name, head->data.age, head->data.id, head->data.score);
             head = head->next;
         }
+        puts("============================Students list:==========================");
 
         puts("Please insert your choice to lookup,1 for id,2 for name,0 for quit!");
         scanf("%d",&choice_n);
@@ -42,9 +45,18 @@ int delete_student(Linklist *L)
             while(getchar() != '\n');
             
             stu1 = lookup_student_list_by_id(L,id);
-            printf("name\tage\tid\tscore\n");
-            printf("%s\t%d\t%d\t%d\n",stu1->name, stu1->age, stu1->id, stu1->score);
-            delete_student_list(L,stu1);
+            if(stu1)
+            {
+                puts("============================Delete student's list==========================");
+                printf("name\tage\tid\tscore\n");
+                printf("%s\t%d\t%d\t%d\n",stu1->name, stu1->age, stu1->id, stu1->score);
+                puts("============================Delete student's list==========================");
+                delete_student_list(L,stu1);
+            }
+            else
+            {
+                puts("No students match.");
+            }
         }
         else if(2 == choice_n)
         {
@@ -66,16 +78,53 @@ int delete_student(Linklist *L)
                 continue;
             }
             head = namelist->next;
+            puts("============================namelist student's ==============================");
             printf("name\tage\tid\tscore\n");
 
             while(head)
             { 
                 stu1 = &(head->data);
                 printf("%s\t%d\t%d\t%d\n",stu1->name, stu1->age, stu1->id, stu1->score);
-                delete_student_list(L,stu1);
 
                 head = head->next;
             }
+            puts("============================namelist student's ==============================");
+
+            
+            puts("Please input your id: in idlist for id,0 for all");
+            scanf("%d",&id);
+            while(getchar() != '\n');
+            
+            stu1 = lookup_student_list_by_id(namelist,id);
+            if(stu1)
+            {
+                puts("============================Delete student's list==========================");
+                printf("name\tage\tid\tscore\n");
+                printf("%s\t%d\t%d\t%d\n",stu1->name, stu1->age, stu1->id, stu1->score);
+                puts("============================Delete student's list==========================");
+                delete_student_list(L,stu1);
+            }
+            else if(id == 0)
+            {
+                head = namelist->next;
+                printf("delete all student name \"%s\"!\n",name);
+                puts("============================Delete student's list==========================");
+                printf("name\tage\tid\tscore\n");
+                while(head)
+                { 
+                    stu1 = &(head->data);
+                    printf("%s\t%d\t%d\t%d\n",stu1->name, stu1->age, stu1->id, stu1->score);
+                    delete_student_list(L,stu1);
+
+                    head = head->next;
+                }
+                puts("============================Delete student's list==========================");
+            }
+            else
+            {
+                puts("Invalid id.");
+            }
+            
             do_free(namelist);
         }
         else if(0 == choice_n)
@@ -99,6 +148,5 @@ int delete_student(Linklist *L)
             continue;
         }
     }
-	printf("delete student!\n");
 	return 0;
 }
