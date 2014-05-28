@@ -75,13 +75,14 @@ int main(int argc, const char *argv[])
 {
 	int cmd, pri = 0;
 	int login_times = 0; 
+	int pass = 0;
 	char ch;
 	Linklist *L;
 
 	while(login_times < 3)
 	{
 		pri = login();
-		if(pri == -1)
+		if(pri < 0)
 		{
 			printf("try again? y/n\n");	
 			ch = getchar();				
@@ -93,13 +94,21 @@ int main(int argc, const char *argv[])
 			}
 			else
 			{
+				printf("system exit!\n");
 				exit(-1);	
 			}
 		}
 		else
 		{
+			pass = 1;
 			break;		
 		}
+	}
+
+	if(pass == 0)
+	{
+		printf("system exit!\n");
+		exit(-1);	
 	}
 
 	L = create_empty_linklist();
